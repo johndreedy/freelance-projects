@@ -1,6 +1,6 @@
 # johndreedy - Freelance Projects
 
-This is the repository for my freelance projects, unrelated to The Odin Project.
+This is a re-uploaded repository for my freelance projects, unrelated to The Odin Project which is my main repository.
 It contains projects that I have been working on myself, to create applications I believe are interesting or provide convenience for others.
 
 Currently included is:
