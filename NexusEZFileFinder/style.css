@@ -52,11 +52,14 @@ a, p {
     padding-bottom: 0.25em;
     transition-duration: 0.4s;
     background-color: #dbdbdb;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .list-container li:hover {
     background-color: #c9cdd1;
-    cursor: grab;
+    cursor: pointer;
 }
 
 .log-container {
@@ -85,4 +88,13 @@ a, p {
     display: flex;
     font-size: 18px;
     flex-direction: column;
+}
+
+.find-mods-container,
+.search-options-container,
+.help-text-container {
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+    align-items: center;
 }
