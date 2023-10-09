@@ -9,8 +9,8 @@ body {
     min-height: 100vh;
 }
 
-p {
-    padding: 0;
+a, p {
+    padding: 5px;
     margin: 0;
     gap: 0;
 }
@@ -29,6 +29,7 @@ p {
 
 .list-container ul {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
     padding: 1em;
@@ -49,7 +50,13 @@ p {
     padding-right: 1em;
     padding-top: 0.25em;
     padding-bottom: 0.25em;
+    transition-duration: 0.4s;
     background-color: #dbdbdb;
+}
+
+.list-container li:hover {
+    background-color: #c9cdd1;
+    cursor: grab;
 }
 
 .log-container {
@@ -58,16 +65,20 @@ p {
     justify-content: center;
 }
 
-.text-log {
+#text-log {
     display: flex;
+    flex-direction: column;
     background-color: #f0f0f0;
     margin-bottom: 100px;
     width: 70%;
-    max-width: 500px;
-    max-height: 600px;
+    max-width: 600px;
+    max-height: 400px;
     justify-content: flex-start;
     padding: 20px;
     height: 100vh;
+    overflow-y: scroll;
+    font-size: 18px;
+    border-radius: 1%;
 }
 
 .log-text {
