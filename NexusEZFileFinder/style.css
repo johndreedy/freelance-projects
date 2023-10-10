@@ -11,7 +11,7 @@ body {
 }
 
 a, p {
-    padding: 5px;
+    padding: 0px;
     margin: 0;
     gap: 0;
 }
@@ -94,10 +94,10 @@ a, p {
 
 #help-text {
     display: flex;
+    flex: 1;
+    flex-wrap: wrap;
     font-size: 18px;
     justify-content: center;
-    padding-left: 500px;
-    padding-right: 500px;
 }
 
 .find-mods-container,
@@ -107,6 +107,11 @@ a, p {
     font-size: 18px;
     justify-content: center;
     align-items: center;
+}
+
+.help-text-container {
+    padding-left: 400px;
+    padding-right: 400px;
 }
 
 textarea {
