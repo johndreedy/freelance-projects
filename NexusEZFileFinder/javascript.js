@@ -66,11 +66,20 @@ function changeTabHelp () {
 }
 
 function validateURL () {
-    if (document.getElementById('url-text').value.includes("https://www.nexusmods.com/" && "/mods/")) {
-        document.getElementById('enter-url-text').textContent = "Valid URL entered!";
-        return true;
+    let linkHasNumber = /\d+$/.test(document.getElementById('url-text').value);
+    if (linkHasNumber === true && !document.getElementById('url-text').value.includes("?")) {
+        if (document.getElementById('url-text').value.includes("https://www.nexusmods.com/" && "/mods/")) {
+            document.getElementById('enter-url-text').textContent = "Valid URL entered!";
+            document.getElementById('enter-url-text').style.color = "green";
+            return true;
+        } else {
+            document.getElementById('enter-url-text').textContent = "Invalid URL entered!";
+            document.getElementById('enter-url-text').style.color = "red";
+            return false;
+        }
     } else {
         document.getElementById('enter-url-text').textContent = "Invalid URL entered!";
+        document.getElementById('enter-url-text').style.color = "red";
         return false;
     }
 }
