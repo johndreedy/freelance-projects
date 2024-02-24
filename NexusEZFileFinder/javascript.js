@@ -1,10 +1,12 @@
 const MOD_ID = 1;
+let THROTTLE_SPEED_MS = 100;
 let FILE_ID = 1;
 let BACKUP_FILE_ID = FILE_ID;
 let URL_LINK;
 let searchingForMods = false;
 let tabIndex = 0;
 let modFound = false;
+let hasError = false;
 
 const FIND_MODS_BUTTON = document.getElementById('find-mods-button');
 FIND_MODS_BUTTON.addEventListener("click", changeTabFindMods);
@@ -102,7 +104,7 @@ function createLogElement () {
     getHTMLContent(URL_LINK);
     createFoundModLog(modFound);
     console.log(modFound);
-  }
+}
 
 
 function createFoundModLog (modFound) {
@@ -124,14 +126,30 @@ async function asyncCreateLogElement() {
     FILE_ID = BACKUP_FILE_ID;
     for (;; FILE_ID++) {
         if (searchingForMods === true) {
-            await new Promise(resolve => setTimeout(resolve, 750));
+            await new Promise(resolve => setTimeout(resolve, THROTTLE_SPEED_MS));
             // throttling connection speed is necessary to prevent CORS rejection
-            createLogElement();
+            if (hasError===false) {
+                createLogElement();
+            } else {
+                createErrorLog();
+                THROTTLE_SPEED_MS += (THROTTLE_SPEED_MS * 0.025);
+                console.log(THROTTLE_SPEED_MS)
+            }
         } else {
             break;
         }
     }
 }
+
+function createErrorLog() {
+    const messageText = 'Error fetching HTML: TypeError';
+    const p = document.createElement('p');
+    const messageNode = document.createTextNode(messageText);
+    p.appendChild(messageNode);
+    document.getElementById('text-log').appendChild(p);
+    document.getElementById('text-log').scrollTop = document.getElementById('text-log').scrollHeight;
+}
+
 
 function startModSearch() {
     if (validateURL()===true) {
@@ -152,17 +170,24 @@ function startModSearch() {
 }
 
 // -------------------
-// working fix from StackOverflow for minimum viable product
+// working fix below from StackOverflow for minimum viable product
 // -------------------
 
 let session = new Map();
 let queue = [];
 
 async function fetchWithSession(url, session) {
-    if (!session.has(url)) {
-        session.set(url, fetch(url));
+    try {
+        if (!session.has(url)) {
+            session.set(url, fetch(url));
+        }
+        hasError = false;
+        return await session.get(url);
+    } catch (error) {
+        console.error('Error fetching URL:', url, error);
+        hasError = true;
+        throw error; 
     }
-    return session.get(url);
 }
 
 async function fetchHTML(url) {
