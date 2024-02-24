@@ -152,6 +152,8 @@ function startModSearch() {
 }
 
 // -------------------
+// working fix from StackOverflow for minimum viable product
+// -------------------
 
 let session = new Map();
 let queue = [];
